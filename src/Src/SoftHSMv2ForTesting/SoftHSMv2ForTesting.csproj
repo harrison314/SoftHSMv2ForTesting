@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>harrison314</Authors>
+    <Company>harrison314</Company>
+    <Product>SoftHSMv2 for testing</Product>
+    <RepositoryUrl>https://github.com/harrison314/SoftHSMv2ForTesting.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/harrison314/SoftHSMv2ForTesting</PackageProjectUrl>
+    <PackageTags>SoftHSMv2, HSM, PKI, PKCS#11, Testing, Unit testing, Mock</PackageTags>
+    <Description>This project pack SoftHSMv2 v 2.5.0 as nuget package along with minimal code for initialize and destroy SoftHSMv2.
+
+It is designed for testing .Net projects, using PKCS#11 devices (e.g. smart cards, HSM, tokens,...),
+in CI/CD enviroment.
+
+See also https://github.com/disig/SoftHSM2-for-Windows.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\SoftHSMv2ForTesting.xml</DocumentationFile>
+    <Copyright>(c) 2019</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Content/**/*.gz" />
+    <EmbeddedResource Include="Content/**/*.gz" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ThirdPartyLicenses.txt">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
+  </ItemGroup>
+</Project>

@@ -74,6 +74,13 @@ Usage with _MS Test_ and [PKCS#11 Interop](https://github.com/Pkcs11Interop/Pkcs
         }
     }
 ```
+## Supported frmaeworks and platforms
+Framewroks:
+* .Netstandrad 2.0
+
+Platforms:
+* Windows x86
+* Windows x64
 
 ## Contributing
 Pull requests, issues and commentary welcome!
@@ -83,5 +90,3 @@ Forking the repo is probably the easiest way to get started. There is a nice lis
 ## Third Party Licenses
 1. [SoftHSMv2](https://raw.githubusercontent.com/opendnssec/SoftHSMv2/develop/LICENSE)
 1. [SoftHSM2 installer for MS Windows](https://github.com/disig/SoftHSM2-for-Windows/blob/master/LICENSE)
-
-## License, etc.

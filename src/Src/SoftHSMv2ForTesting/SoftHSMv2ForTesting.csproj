@@ -15,12 +15,13 @@
 It is designed for testing .Net projects, using PKCS#11 devices (e.g. smart cards, HSM, tokens,...),
 in CI/CD enviroment.
 
-See also https://github.com/disig/SoftHSM2-for-Windows.</Description>
+See also https://github.com/disig/SoftHSM2-for-Windows and https://github.com/opendnssec/SoftHSMv2.</Description>
   </PropertyGroup>
 
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\SoftHSMv2ForTesting.xml</DocumentationFile>
     <Copyright>(c) 2019</Copyright>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/harrison314/SoftHSMv2ForTesting/master/AllLicenses.txt</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

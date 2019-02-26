@@ -1,27 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>harrison314</Authors>
     <Company>harrison314</Company>
     <Product>SoftHSMv2 for testing</Product>
+    <Title>SoftHSMv2 (as nuget) for testing</Title>
     <RepositoryUrl>https://github.com/harrison314/SoftHSMv2ForTesting.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/harrison314/SoftHSMv2ForTesting</PackageProjectUrl>
     <PackageTags>SoftHSMv2, HSM, PKI, PKCS#11, Testing, Unit testing, Mock</PackageTags>
-    <Description>This project pack SoftHSMv2 v 2.5.0 as nuget package along with minimal code for initialize and destroy SoftHSMv2.
+    <Description>
+      This project pack SoftHSMv2 v 2.5.0 as nuget package along with minimal code for initialize and destroy SoftHSMv2.
 
-It is designed for testing .Net projects, using PKCS#11 devices (e.g. smart cards, HSM, tokens,...),
-in CI/CD enviroment.
+      It is designed for testing .Net projects, using PKCS#11 devices (e.g. smart cards, HSM, tokens,...),
+      in CI/CD enviroment.
 
-See also https://github.com/disig/SoftHSM2-for-Windows and https://github.com/opendnssec/SoftHSMv2.</Description>
+      See also https://github.com/disig/SoftHSM2-for-Windows and https://github.com/opendnssec/SoftHSMv2.
+    </Description>
+    <Copyright>Copyright © 2019 harrison314</Copyright>
+    <title>SoftHSMv2 (as nuget) for testing</title>
   </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
 
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\SoftHSMv2ForTesting.xml</DocumentationFile>
-    <Copyright>(c) 2019</Copyright>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/harrison314/SoftHSMv2ForTesting/master/AllLicenses.txt</PackageLicenseUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/harrison314/SoftHSMv2ForTesting/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +40,10 @@ See also https://github.com/disig/SoftHSM2-for-Windows and https://github.com/op
 
   <ItemGroup>
     <Content Include="ThirdPartyLicenses.txt">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
+    <Content Include="License.txt">
       <Pack>true</Pack>
       <PackagePath>\</PackagePath>
     </Content>

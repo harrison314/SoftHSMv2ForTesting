@@ -11,11 +11,13 @@ namespace SoftHSMv2ForTesting
     {
         public static void CheckPlatform()
         {
+#if NETSTANDARD2_0
             bool isWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
             if(!isWindows)
             {
                 throw new PlatformNotSupportedException("SoftHSMv2ForTesting support Windows only, for more info or contribute see https://github.com/harrison314/SoftHSMv2ForTesting");
             }
+#endif
         }
     }
 }

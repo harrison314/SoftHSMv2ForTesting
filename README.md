@@ -1,8 +1,20 @@
 # SoftHSMv2 (as nuget) for testing
+[![NuGet Status](http://img.shields.io/nuget/v/SoftHSMv2ForTesting.svg?style=flat)](https://www.nuget.org/packages/SoftHSMv2ForTesting/)
+
 This project pack [SoftHSMv2 v 2.5.0](https://github.com/opendnssec/SoftHSMv2) as nuget package along with minimal code for initialize and destroy SoftHSMv2.
 
 It is designed for testing .Net projects, using _PKCS#11_ devices (e.g. smart cards, HSM, tokens,...),
 in CI/CD enviroment.
+
+## Getting started
+Package manager
+```
+Install-Package SoftHSMv2ForTesting
+```
+dotnet cli
+```
+dotnet add package SoftHSMv2ForTesting
+```
 
 ## Usage
 Usage with _MS Test_ and [PKCS#11 Interop](https://github.com/Pkcs11Interop/Pkcs11Interop).
@@ -77,6 +89,7 @@ Usage with _MS Test_ and [PKCS#11 Interop](https://github.com/Pkcs11Interop/Pkcs
 ## Supported frmaeworks and platforms
 Framewroks:
 * .Netstandrad 2.0
+* .Net Framewrok 4.0
 
 Platforms:
 * Windows x86

@@ -35,7 +35,7 @@ namespace SoftHSMv2ForTesting
 
             string path = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.Process);
             Environment.SetEnvironmentVariable("PATH", string.Concat(path, ";", paths.LibFilderPath), EnvironmentVariableTarget.Process);
-            InitToken(paths.UtilPath, settings.LabelName, settings.Pin, settings.SoPin);
+            InitToken(paths.UtilPath, 0U, settings.LabelName, settings.Pin, settings.SoPin);
 
             return new SoftHsmContext(paths.BasePath);
         }
@@ -62,7 +62,7 @@ namespace SoftHSMv2ForTesting
             return Init(settings);
         }
 
-        internal static void InitToken(string utilPath, string labelName, string pin, string soPin)
+        internal static void InitToken(string utilPath, ulong slotNumber, string labelName, string pin, string soPin)
         {
             ProcessStartInfo info = new ProcessStartInfo()
             {
@@ -70,7 +70,7 @@ namespace SoftHSMv2ForTesting
                 WindowStyle = ProcessWindowStyle.Hidden,
                 FileName = utilPath,
                 WorkingDirectory = Path.GetDirectoryName(utilPath),
-                Arguments = $"--init-token --slot 0 --label {EscapeCmdArg(labelName)} --so-pin {EscapeCmdArg(soPin)} --pin {EscapeCmdArg(pin)}"
+                Arguments = $"--init-token --slot {slotNumber} --label {EscapeCmdArg(labelName)} --so-pin {EscapeCmdArg(soPin)} --pin {EscapeCmdArg(pin)}"
             };
 
             using (Process process = Process.Start(info))

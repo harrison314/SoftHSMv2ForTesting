@@ -14,6 +14,13 @@ namespace SoftHSMv2ForTesting
     public class SoftHsmContext : IDisposable
     {
         private readonly string softHsmBasePath;
+        private readonly object syncRoot;
+
+        internal ulong NextSlotId
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Gets the full path to SoftHSMv2 PKCS#11 library.
@@ -39,6 +46,8 @@ namespace SoftHSMv2ForTesting
         internal SoftHsmContext(string softHsmBasePath)
         {
             this.softHsmBasePath = softHsmBasePath;
+            this.NextSlotId = 1U;
+            this.syncRoot = new object();
         }
 
         /// <summary>
@@ -89,8 +98,12 @@ namespace SoftHSMv2ForTesting
                 throw new ArgumentNullException(nameof(soPin));
             }
 
-            string utilPath = Path.Combine(this.softHsmBasePath, "bin", "softhsm2-util.exe");
-            SoftHsmInitializer.InitToken(utilPath, tokenLabel, pin, soPin);
+            lock (this.syncRoot)
+            {
+                string utilPath = Path.Combine(this.softHsmBasePath, "bin", "softhsm2-util.exe");
+                SoftHsmInitializer.InitToken(utilPath, this.NextSlotId, tokenLabel, pin, soPin);
+                this.NextSlotId++;
+            }
         }
 
 

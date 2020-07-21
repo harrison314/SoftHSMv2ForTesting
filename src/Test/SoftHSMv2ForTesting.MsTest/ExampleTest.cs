@@ -38,6 +38,9 @@ namespace SoftHSMv2ForTesting.MsTest
                 opt.Pin = TokenUserPin;
                 opt.SoPin = TokenSoPin;
             });
+
+            // Add another Token
+            softHsmContext.AddToken("SecondToken", "abc456", "hello");
         }
 
         [AssemblyCleanup]

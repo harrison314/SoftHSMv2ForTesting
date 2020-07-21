@@ -49,6 +49,9 @@ Usage with _MS Test_ and [PKCS#11 Interop](https://github.com/Pkcs11Interop/Pkcs
                 opt.Pin = TokenUserPin;
                 opt.SoPin = TokenSoPin;
             });
+
+            // Add another Token
+            // softHsmContext.AddToken("SecondToken", "abc456", "hello");
         }
 
         [AssemblyCleanup]
@@ -70,19 +73,17 @@ Usage with _MS Test_ and [PKCS#11 Interop](https://github.com/Pkcs11Interop/Pkcs
         [TestMethod]
         public void GetTokenSerial()
         {
-            using (Pkcs11 pkcs11 = new Pkcs11(AssemblyInitializedTest.Pkcs11LibPath, AppType.MultiThreaded))
-            {
-                Slot slot = pkcs11.GetSlotList(SlotsType.WithTokenPresent)
-                     .Single(t => t.GetTokenInfo().Label == AssemblyInitializedTest.TokenName);
+            Pkcs11InteropFactories interopFactories = new Pkcs11InteropFactories();
 
-                using (Session session = slot.OpenSession(SessionType.ReadOnly))
-                {
-                    session.Login(CKU.CKU_USER, AssemblyInitializedTest.TokenUserPin);
+            using IPkcs11Library pkcs11 = interopFactories.Pkcs11LibraryFactory.LoadPkcs11Library(interopFactories, AssemblyInitializedTest.Pkcs11LibPath, AppType.MultiThreaded);
+            ISlot slot = pkcs11.GetSlotList(SlotsType.WithTokenPresent)
+                 .Single(t => t.GetTokenInfo().Label == AssemblyInitializedTest.TokenName);
 
-                    string serialNumber = slot.GetTokenInfo().SerialNumber;
-                    this.TestContext.WriteLine("Token has serial: {0}", serialNumber);
-                }
-            }
+            using ISession session = slot.OpenSession(SessionType.ReadOnly);
+            session.Login(CKU.CKU_USER, AssemblyInitializedTest.TokenUserPin);
+
+            string serialNumber = slot.GetTokenInfo().SerialNumber;
+            this.TestContext.WriteLine("Token has serial: {0}", serialNumber);
         }
     }
 ```

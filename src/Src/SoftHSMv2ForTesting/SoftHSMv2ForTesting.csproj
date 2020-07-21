@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
     <Authors>harrison314</Authors>
-    <Company>harrison314</Company>
+    <Company>$(Authors)</Company>
+    <Version>1.0.1</Version>
     <Product>SoftHSMv2 for testing</Product>
     <Title>SoftHSMv2 (as nuget) for testing</Title>
     <RepositoryUrl>https://github.com/harrison314/SoftHSMv2ForTesting.git</RepositoryUrl>
@@ -24,17 +25,18 @@
     </Description>
     <Copyright>Copyright © 2020 harrison314</Copyright>
     <title>SoftHSMv2 (as nuget) for testing</title>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\SoftHSMv2ForTesting.xml</DocumentationFile>
+    <PackageReleaseNotes>
+      Fix prblem with crate multiple tokens.
+      Add nuget icon.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\SoftHSMv2ForTesting.xml</DocumentationFile>
-  </PropertyGroup>
-
+  
   <ItemGroup>
     <None Remove="Content/**/*.gz" />
     <EmbeddedResource Include="Content/**/*.gz" />

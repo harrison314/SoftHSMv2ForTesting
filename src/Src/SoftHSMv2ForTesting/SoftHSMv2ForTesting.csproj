@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>harrison314</Authors>
     <Company>harrison314</Company>
     <Product>SoftHSMv2 for testing</Product>
@@ -11,6 +10,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/harrison314/SoftHSMv2ForTesting</PackageProjectUrl>
     <PackageTags>SoftHSMv2, HSM, PKI, PKCS#11, Testing, Unit testing, Mock</PackageTags>
+    <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <PackageIcon>NugetIcon.png</PackageIcon>
     <Description>
       This project pack SoftHSMv2 v 2.5.0 as nuget package along with minimal code for initialize and destroy SoftHSMv2.
 
@@ -19,7 +22,7 @@
 
       See also https://github.com/disig/SoftHSM2-for-Windows and https://github.com/opendnssec/SoftHSMv2.
     </Description>
-    <Copyright>Copyright © 2019 harrison314</Copyright>
+    <Copyright>Copyright © 2020 harrison314</Copyright>
     <title>SoftHSMv2 (as nuget) for testing</title>
   </PropertyGroup>
 
@@ -30,7 +33,6 @@
 
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\SoftHSMv2ForTesting.xml</DocumentationFile>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/harrison314/SoftHSMv2ForTesting/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,5 +49,12 @@
       <Pack>true</Pack>
       <PackagePath>\</PackagePath>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\img\NugetIcon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 </Project>

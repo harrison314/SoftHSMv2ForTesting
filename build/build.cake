@@ -1,3 +1,5 @@
+#addin nuget:?package=Cake.Git&version=0.21.0
+
 var target = Argument("target", "Default");
 var configuration = Argument("Configuration", "Release");
 var softhsmVersion = Argument("SofthsmVersion", "2.5.0");
@@ -10,28 +12,18 @@ using System.IO.Compression;
 string artefacts = "./Artefacts";
 
 // ****************************************************************************
-var netCoreBuildSettings = new DotNetCoreBuildSettings()
-{
-    Configuration = configuration,
-    NoDependencies = false,
-    NoIncremental = true,
-    NoRestore = false
-};
 
-var netCoreDotNetCoreTestSettings = new  DotNetCoreTestSettings()
+void UpdateSettings(DotNetCoreSettings settings)
 {
-    //TODO: lcov
-    Configuration = configuration
-};
+    if (settings.EnvironmentVariables == null)
+    {
+        settings.EnvironmentVariables = new Dictionary<string, string>();
+    }
 
-var netCoreDotNetCorePackSettings = new  DotNetCorePackSettings ()
-{
-    Configuration = configuration,
-    OutputDirectory = artefacts,
-    IncludeSource = false,
-    IncludeSymbols = false,
-    NoBuild = false
-};
+    var branch = GitBranchCurrent("..");
+    //settings.EnvironmentVariables.Add("RepositoryBranch", branch.FriendlyName);
+    settings.EnvironmentVariables.Add("RepositoryCommit", branch.Tip.Sha);
+}
 
 // ****************************************************************************
 // Tasks
@@ -62,6 +54,14 @@ Task("Build")
     .IsDependentOn("Clean")
     .Does(()=>
     {
+        DotNetCoreBuildSettings netCoreBuildSettings = new DotNetCoreBuildSettings()
+        {
+            Configuration = configuration,
+            NoDependencies = false,
+            NoIncremental = true,
+            NoRestore = false
+        };
+
         DotNetCoreBuild("../src/Src/SoftHSMv2ForTesting/SoftHSMv2ForTesting.csproj", netCoreBuildSettings);
         DotNetCoreBuild("../src/Test/SoftHSMv2ForTesting.MsTest/SoftHSMv2ForTesting.MsTest.csproj", netCoreBuildSettings);
     });
@@ -70,6 +70,11 @@ Task("Test")
     .IsDependentOn("Build")
     .Does(()=>
     {
+        DotNetCoreTestSettings netCoreDotNetCoreTestSettings = new DotNetCoreTestSettings()
+        {
+            Configuration = configuration
+        };
+
         DotNetCoreTest("../src/Test/SoftHSMv2ForTesting.MsTest/SoftHSMv2ForTesting.MsTest.csproj", netCoreDotNetCoreTestSettings);
     });
 
@@ -77,6 +82,16 @@ Task("Pack")
     .IsDependentOn("Test")
     .Does(()=>
     {
+        DotNetCorePackSettings netCoreDotNetCorePackSettings = new  DotNetCorePackSettings()
+        {
+            Configuration = configuration,
+            OutputDirectory = artefacts,
+            IncludeSource = false,
+            IncludeSymbols = false,
+            NoBuild = false
+        };
+
+        UpdateSettings(netCoreDotNetCorePackSettings);
         DotNetCorePack("../src/Src/SoftHSMv2ForTesting/SoftHSMv2ForTesting.csproj", netCoreDotNetCorePackSettings);
     });
 
